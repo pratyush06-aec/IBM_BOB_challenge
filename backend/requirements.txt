@@ -38,3 +38,6 @@ bcrypt==4.1.2
 
 # Firebase Authentication
 firebase-admin==6.4.0
+
+# Email validation (required by pydantic[email])
+email-validator==2.1.0
