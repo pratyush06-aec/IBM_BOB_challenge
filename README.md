@@ -47,7 +47,7 @@ While the prototype looks and feels like the final product, several technical re
 
 ---
 
-<div class=display: flex; justify-content: space-evenly; flex-wrap: wrap>
+<div class="container-fluid"; style=display: flex; justify-content: space-evenly; flex-wrap: wrap>
   <div align="center">
     <img src="assets/Screenshot 2026-05-17 172252.png" alt="Some snapshots of the application" width="250" />
   </div>
