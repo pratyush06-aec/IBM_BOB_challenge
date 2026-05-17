@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./logo.png" alt="GraphMind AI Logo" width="250" />
+  <img src=".assets/logo.png" alt="GraphMind AI Logo" width="250" />
   <h1>GraphMind AI</h1>
   <p><strong>AI-Native Engineering Cognition Platform</strong></p>
   <p>Transform repositories into interactive 3D semantic intelligence graphs.</p>
