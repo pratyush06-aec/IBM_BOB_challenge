@@ -48,7 +48,7 @@ While the prototype looks and feels like the final product, several technical re
 ---
 
 <div align="center">
-  <img src="assets/logo.png" alt="GraphMind AI Logo" width="250" />
+  <img src="assets/Screenshot 2026-05-17 172252.png" alt="Some snapshots of the application" width="250" />
   <h1>GraphMind AI</h1>
   <p><strong>AI-Native Engineering Cognition Platform</strong></p>
   <p>Transform repositories into interactive 3D semantic intelligence graphs.</p>
