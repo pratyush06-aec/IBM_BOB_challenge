@@ -47,19 +47,24 @@ While the prototype looks and feels like the final product, several technical re
 
 ---
 
-<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-  <div align="center">
-    <img src="assets/Screenshot 2026-05-17 172252.png" alt="Some snapshots of the application" width="250" />
-  </div>
-  
-  <div align="center">
-    <img src="assets/Screenshot 2026-05-17 172305.png" alt="Some snapshots of the application" width="250" />
-  </div>
-  
-  <div align="center">
-    <img src="assets/Screenshot 2026-05-17 172328.png" alt="Some snapshots of the application" width="250" />
-  </div>
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="assets/Screenshot 2026-05-17 172252.png" width="250"/><br/>
+      <b>Workflow Engine</b>
+    </td>
+
+    <td align="center">
+      <img src="assets/Screenshot 2026-05-17 172305.png" width="250"/><br/>
+      <b>Repository Upload</b>
+    </td>
+
+    <td align="center">
+      <img src="assets/Screenshot 2026-05-17 172328.png" width="250"/><br/>
+      <b>3D Graph Visualization</b>
+    </td>
+  </tr>
+</table>
 
 ---
 
