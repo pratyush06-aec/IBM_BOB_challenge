@@ -47,24 +47,17 @@ While the prototype looks and feels like the final product, several technical re
 
 ---
 
-<table align="center">
-  <tr>
-    <td align="center">
-      <img src="assets/Screenshot 2026-05-17 172252.png" width="250"/><br/>
-      <b>Workflow Engine</b>
-    </td>
+<div align="center"> 
+  <img src="assets/Screenshot 2026-05-17 172252.png" alt="Some snapshots of the application" width="250" /> 
+</div> 
 
-    <td align="center">
-      <img src="assets/Screenshot 2026-05-17 172305.png" width="250"/><br/>
-      <b>Repository Upload</b>
-    </td>
+<div align="center"> 
+  <img src="assets/Screenshot 2026-05-17 172305.png" alt="Some snapshots of the application" width="250" /> 
+</div> 
 
-    <td align="center">
-      <img src="assets/Screenshot 2026-05-17 172328.png" width="250"/><br/>
-      <b>3D Graph Visualization</b>
-    </td>
-  </tr>
-</table>
+<div align="center"> 
+  <img src="assets/Screenshot 2026-05-17 172328.png" alt="Some snapshots of the application" width="250" /> 
+</div> 
 
 ---
 
