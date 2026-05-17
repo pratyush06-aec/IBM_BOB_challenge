@@ -32,7 +32,8 @@ const RepositoryList: React.FC<RepositoryListProps> = ({
   const fetchRepositories = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8000/api/repository/', {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${apiUrl}/api/repository/`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -65,7 +66,8 @@ const RepositoryList: React.FC<RepositoryListProps> = ({
 
     try {
       setDeletingId(repoId);
-      const response = await fetch(`http://localhost:8000/api/repository/${repoId}`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${apiUrl}/api/repository/${repoId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

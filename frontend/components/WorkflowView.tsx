@@ -30,7 +30,8 @@ export default function WorkflowView({ token }: WorkflowViewProps) {
 
   const fetchWorkflows = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/workflows', {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${apiUrl}/api/workflows`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -49,7 +50,8 @@ export default function WorkflowView({ token }: WorkflowViewProps) {
 
   const fetchWorkflowDetails = async (workflowId: string) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/workflow/${workflowId}`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${apiUrl}/api/workflow/${workflowId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

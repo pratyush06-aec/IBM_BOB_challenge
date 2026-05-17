@@ -20,6 +20,7 @@ from ..firebase_service import FirebaseUser
 from .auth import get_current_user
 from ..repository_parser import RepositoryParser
 from ..neo4j_service import neo4j_service
+from ..storage_service import r2_storage
 
 router = APIRouter(prefix="/api/repository", tags=["repository"])
 
@@ -27,7 +28,7 @@ router = APIRouter(prefix="/api/repository", tags=["repository"])
 UPLOAD_DIR = os.getenv('UPLOAD_DIR', './uploads')
 MAX_UPLOAD_SIZE = int(os.getenv('MAX_UPLOAD_SIZE', 104857600))  # 100MB default
 
-# Ensure upload directory exists
+# Ensure local upload directory exists (used as fallback when R2 is unavailable)
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 
@@ -82,46 +83,65 @@ async def upload_repository(
     # Create temporary directory for processing
     with tempfile.TemporaryDirectory() as temp_dir:
         try:
-            # Save uploaded file
+            # Save uploaded file locally for processing
             file_path = os.path.join(temp_dir, file.filename)
             with open(file_path, 'wb') as buffer:
                 shutil.copyfileobj(file.file, buffer)
-            
-            # Extract archive
+
+            # Upload archive to Cloudflare R2 (if available)
+            r2_object_key = None
+            r2_url = None
+            if r2_storage.is_available:
+                object_key = f"repositories/{current_user.uid}/{file.filename}"
+                with open(file_path, 'rb') as f:
+                    r2_url = r2_storage.upload_file(f, object_key, content_type="application/zip")
+                if r2_url:
+                    r2_object_key = object_key
+                    print(f"[OK] Archive uploaded to R2: {object_key}")
+                else:
+                    print("[WARNING] R2 upload failed, continuing with local processing only")
+            else:
+                # Fallback: persist to local UPLOAD_DIR
+                local_dest = os.path.join(UPLOAD_DIR, f"{current_user.uid}_{file.filename}")
+                shutil.copy2(file_path, local_dest)
+                print(f"[INFO] Archive saved locally (R2 unavailable): {local_dest}")
+
+            # Extract archive for parsing
             extract_dir = os.path.join(temp_dir, 'extracted')
             os.makedirs(extract_dir, exist_ok=True)
             repo_path = extract_archive(file_path, extract_dir)
-            
+
             # Parse repository
             parser = RepositoryParser(repo_path)
             result = parser.parse_repository()
-            
+
+            # Attach storage metadata
+            result['repository']['r2_object_key'] = r2_object_key
+            result['repository']['r2_url'] = r2_url
+            result['repository']['storage_backend'] = 'r2' if r2_object_key else 'local'
+
             # Store in Neo4j if connected
             if neo4j_service.is_connected():
-                # Create repository node
                 repo_id = neo4j_service.create_repository(result['repository'])
-                
-                # Store graph data
                 neo4j_service.store_graph_data(
                     repo_id,
                     result['graph'],
                     current_user.uid
                 )
-                
                 result['repository']['id'] = repo_id
                 result['repository']['stored_in_neo4j'] = True
             else:
                 result['repository']['id'] = f"temp_{file.filename}"
                 result['repository']['stored_in_neo4j'] = False
                 result['repository']['warning'] = "Neo4j not connected, data not persisted"
-            
+
             return {
                 "message": "Repository uploaded and parsed successfully",
                 "repository": result['repository'],
                 "graph": result['graph'],
                 "statistics": result['statistics']
             }
-            
+
         except ValueError as e:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,

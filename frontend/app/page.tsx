@@ -46,10 +46,11 @@ export default function Home() {
 
   // Fetch graph data
   useEffect(() => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     if (currentRepoId && token) {
       // Fetch specific repository graph
       setLoading(true)
-      fetch(`http://localhost:8000/api/repository/${currentRepoId}`, {
+      fetch(`${apiUrl}/api/repository/${currentRepoId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -73,7 +74,7 @@ export default function Home() {
         })
     } else {
       // Fetch default sample graph
-      fetch('http://localhost:8000/api/graph', {
+      fetch(`${apiUrl}/api/graph`, {
         headers: {
           'Authorization': `Bearer dummy-token`
         }
@@ -95,8 +96,6 @@ export default function Home() {
           console.error('Error loading graph:', err)
           setLoading(false)
         })
-    } else {
-        setLoading(false)
     }
   }, [currentRepoId, token])
 

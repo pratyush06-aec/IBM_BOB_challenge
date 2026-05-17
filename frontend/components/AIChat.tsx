@@ -34,7 +34,8 @@ export default function AIChat({ selectedNode }: AIChatProps) {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8000/api/ai/query', {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${apiUrl}/api/ai/query`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

@@ -100,11 +100,11 @@ const RepositoryUpload: React.FC<RepositoryUploadProps> = ({
 
       // Handle completion
       xhr.addEventListener('load', () => {
-        if (xhr.status === 200) {
+        if (xhr.status === 200 || xhr.status === 201) {
           const response = JSON.parse(xhr.responseText);
           setSuccess(true);
           setTimeout(() => {
-            onUploadSuccess(response.id);
+            onUploadSuccess(response.id || response.repository?.id);
             onClose();
             resetForm();
           }, 1500);
@@ -121,7 +121,8 @@ const RepositoryUpload: React.FC<RepositoryUploadProps> = ({
         setUploading(false);
       });
 
-      xhr.open('POST', 'http://localhost:8000/api/repository/upload');
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      xhr.open('POST', `${apiUrl}/api/repository/upload`);
       xhr.setRequestHeader('Authorization', `Bearer ${token}`);
       xhr.send(formData);
 
