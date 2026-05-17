@@ -1,0 +1,683 @@
+{
+  "metadata": {
+    "name": "E-Commerce Application",
+    "description": "Sample e-commerce application demonstrating GraphMind AI capabilities",
+    "version": "1.0.0",
+    "created_at": "2026-05-16T12:00:00Z"
+  },
+  "nodes": [
+    {
+      "id": "service_auth",
+      "type": "Service",
+      "label": "Auth Service",
+      "properties": {
+        "name": "AuthService",
+        "description": "Handles user authentication and authorization",
+        "port": 3001,
+        "status": "active",
+        "importance": 10,
+        "risk_score": 0.3
+      },
+      "position": { "x": 0, "y": 0, "z": 0 }
+    },
+    {
+      "id": "service_products",
+      "type": "Service",
+      "label": "Products Service",
+      "properties": {
+        "name": "ProductsService",
+        "description": "Manages product catalog and inventory",
+        "port": 3002,
+        "status": "active",
+        "importance": 9,
+        "risk_score": 0.2
+      },
+      "position": { "x": 100, "y": 0, "z": 0 }
+    },
+    {
+      "id": "service_cart",
+      "type": "Service",
+      "label": "Cart Service",
+      "properties": {
+        "name": "CartService",
+        "description": "Manages shopping cart operations",
+        "port": 3003,
+        "status": "active",
+        "importance": 8,
+        "risk_score": 0.25
+      },
+      "position": { "x": 50, "y": 100, "z": 0 }
+    },
+    {
+      "id": "service_payment",
+      "type": "Service",
+      "label": "Payment Service",
+      "properties": {
+        "name": "PaymentService",
+        "description": "Processes payments and transactions",
+        "port": 3004,
+        "status": "active",
+        "importance": 10,
+        "risk_score": 0.4
+      },
+      "position": { "x": 150, "y": 100, "z": 0 }
+    },
+    {
+      "id": "service_orders",
+      "type": "Service",
+      "label": "Orders Service",
+      "properties": {
+        "name": "OrdersService",
+        "description": "Manages order processing and fulfillment",
+        "port": 3005,
+        "status": "active",
+        "importance": 9,
+        "risk_score": 0.3
+      },
+      "position": { "x": 100, "y": 200, "z": 0 }
+    },
+    {
+      "id": "api_login",
+      "type": "API",
+      "label": "POST /auth/login",
+      "properties": {
+        "endpoint": "/auth/login",
+        "method": "POST",
+        "description": "User login endpoint",
+        "auth_required": false,
+        "rate_limit": 10
+      },
+      "position": { "x": -50, "y": 0, "z": 50 }
+    },
+    {
+      "id": "api_register",
+      "type": "API",
+      "label": "POST /auth/register",
+      "properties": {
+        "endpoint": "/auth/register",
+        "method": "POST",
+        "description": "User registration endpoint",
+        "auth_required": false,
+        "rate_limit": 5
+      },
+      "position": { "x": -50, "y": -50, "z": 50 }
+    },
+    {
+      "id": "api_get_products",
+      "type": "API",
+      "label": "GET /products",
+      "properties": {
+        "endpoint": "/products",
+        "method": "GET",
+        "description": "Get all products",
+        "auth_required": false,
+        "rate_limit": 100
+      },
+      "position": { "x": 100, "y": -50, "z": 50 }
+    },
+    {
+      "id": "api_add_to_cart",
+      "type": "API",
+      "label": "POST /cart/add",
+      "properties": {
+        "endpoint": "/cart/add",
+        "method": "POST",
+        "description": "Add item to cart",
+        "auth_required": true,
+        "rate_limit": 50
+      },
+      "position": { "x": 50, "y": 100, "z": 50 }
+    },
+    {
+      "id": "api_checkout",
+      "type": "API",
+      "label": "POST /cart/checkout",
+      "properties": {
+        "endpoint": "/cart/checkout",
+        "method": "POST",
+        "description": "Checkout cart",
+        "auth_required": true,
+        "rate_limit": 20
+      },
+      "position": { "x": 100, "y": 150, "z": 50 }
+    },
+    {
+      "id": "func_authenticate",
+      "type": "Function",
+      "label": "authenticateUser()",
+      "properties": {
+        "name": "authenticateUser",
+        "file_path": "src/auth/authenticate.ts",
+        "line_start": 15,
+        "line_end": 45,
+        "complexity": 5,
+        "description": "Validates user credentials and generates JWT token",
+        "parameters": ["email", "password"],
+        "return_type": "Promise<AuthToken>"
+      },
+      "position": { "x": 0, "y": 0, "z": 100 }
+    },
+    {
+      "id": "func_validate_password",
+      "type": "Function",
+      "label": "validatePassword()",
+      "properties": {
+        "name": "validatePassword",
+        "file_path": "src/auth/password.ts",
+        "line_start": 10,
+        "line_end": 25,
+        "complexity": 3,
+        "description": "Validates password against hash",
+        "parameters": ["password", "hash"],
+        "return_type": "boolean"
+      },
+      "position": { "x": -50, "y": 0, "z": 150 }
+    },
+    {
+      "id": "func_generate_jwt",
+      "type": "Function",
+      "label": "generateJWT()",
+      "properties": {
+        "name": "generateJWT",
+        "file_path": "src/auth/jwt.ts",
+        "line_start": 8,
+        "line_end": 20,
+        "complexity": 2,
+        "description": "Generates JWT token for authenticated user",
+        "parameters": ["userId", "email"],
+        "return_type": "string"
+      },
+      "position": { "x": 50, "y": 0, "z": 150 }
+    },
+    {
+      "id": "func_get_products",
+      "type": "Function",
+      "label": "getProducts()",
+      "properties": {
+        "name": "getProducts",
+        "file_path": "src/products/products.ts",
+        "line_start": 20,
+        "line_end": 50,
+        "complexity": 4,
+        "description": "Retrieves products from database with filters",
+        "parameters": ["filters", "pagination"],
+        "return_type": "Promise<Product[]>"
+      },
+      "position": { "x": 100, "y": 0, "z": 100 }
+    },
+    {
+      "id": "func_add_to_cart",
+      "type": "Function",
+      "label": "addToCart()",
+      "properties": {
+        "name": "addToCart",
+        "file_path": "src/cart/cart.ts",
+        "line_start": 30,
+        "line_end": 60,
+        "complexity": 6,
+        "description": "Adds product to user's cart",
+        "parameters": ["userId", "productId", "quantity"],
+        "return_type": "Promise<Cart>"
+      },
+      "position": { "x": 50, "y": 100, "z": 100 }
+    },
+    {
+      "id": "func_validate_stock",
+      "type": "Function",
+      "label": "validateStock()",
+      "properties": {
+        "name": "validateStock",
+        "file_path": "src/products/inventory.ts",
+        "line_start": 15,
+        "line_end": 35,
+        "complexity": 4,
+        "description": "Validates product stock availability",
+        "parameters": ["productId", "quantity"],
+        "return_type": "Promise<boolean>"
+      },
+      "position": { "x": 100, "y": 50, "z": 150 }
+    },
+    {
+      "id": "func_process_payment",
+      "type": "Function",
+      "label": "processPayment()",
+      "properties": {
+        "name": "processPayment",
+        "file_path": "src/payment/payment.ts",
+        "line_start": 25,
+        "line_end": 80,
+        "complexity": 8,
+        "description": "Processes payment through payment gateway",
+        "parameters": ["orderId", "amount", "paymentMethod"],
+        "return_type": "Promise<PaymentResult>"
+      },
+      "position": { "x": 150, "y": 100, "z": 100 }
+    },
+    {
+      "id": "func_create_order",
+      "type": "Function",
+      "label": "createOrder()",
+      "properties": {
+        "name": "createOrder",
+        "file_path": "src/orders/orders.ts",
+        "line_start": 40,
+        "line_end": 90,
+        "complexity": 7,
+        "description": "Creates order from cart items",
+        "parameters": ["userId", "cartId"],
+        "return_type": "Promise<Order>"
+      },
+      "position": { "x": 100, "y": 200, "z": 100 }
+    },
+    {
+      "id": "func_send_confirmation",
+      "type": "Function",
+      "label": "sendConfirmation()",
+      "properties": {
+        "name": "sendConfirmation",
+        "file_path": "src/notifications/email.ts",
+        "line_start": 10,
+        "line_end": 30,
+        "complexity": 3,
+        "description": "Sends order confirmation email",
+        "parameters": ["orderId", "email"],
+        "return_type": "Promise<void>"
+      },
+      "position": { "x": 150, "y": 250, "z": 100 }
+    },
+    {
+      "id": "db_users",
+      "type": "Database",
+      "label": "Users DB",
+      "properties": {
+        "name": "users_db",
+        "type": "PostgreSQL",
+        "description": "Stores user accounts and profiles",
+        "tables": ["users", "sessions", "roles"]
+      },
+      "position": { "x": 0, "y": 0, "z": 200 }
+    },
+    {
+      "id": "db_products",
+      "type": "Database",
+      "label": "Products DB",
+      "properties": {
+        "name": "products_db",
+        "type": "PostgreSQL",
+        "description": "Stores product catalog and inventory",
+        "tables": ["products", "categories", "inventory"]
+      },
+      "position": { "x": 100, "y": 0, "z": 200 }
+    },
+    {
+      "id": "db_orders",
+      "type": "Database",
+      "label": "Orders DB",
+      "properties": {
+        "name": "orders_db",
+        "type": "PostgreSQL",
+        "description": "Stores orders and transactions",
+        "tables": ["orders", "order_items", "payments"]
+      },
+      "position": { "x": 100, "y": 200, "z": 200 }
+    },
+    {
+      "id": "cache_redis",
+      "type": "Cache",
+      "label": "Redis Cache",
+      "properties": {
+        "name": "redis_cache",
+        "type": "Redis",
+        "description": "Caches frequently accessed data",
+        "port": 6379
+      },
+      "position": { "x": 50, "y": 100, "z": 200 }
+    },
+    {
+      "id": "queue_orders",
+      "type": "Queue",
+      "label": "Order Queue",
+      "properties": {
+        "name": "order_processing_queue",
+        "type": "RabbitMQ",
+        "description": "Queues orders for async processing",
+        "topics": ["order.created", "order.confirmed"]
+      },
+      "position": { "x": 150, "y": 200, "z": 200 }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge_1",
+      "source": "api_login",
+      "target": "func_authenticate",
+      "type": "CALLS",
+      "label": "calls",
+      "properties": {
+        "execution_order": 1,
+        "frequency": 1000,
+        "latency_ms": 45
+      }
+    },
+    {
+      "id": "edge_2",
+      "source": "func_authenticate",
+      "target": "func_validate_password",
+      "type": "CALLS",
+      "label": "calls",
+      "properties": {
+        "execution_order": 2,
+        "frequency": 1000,
+        "latency_ms": 15
+      }
+    },
+    {
+      "id": "edge_3",
+      "source": "func_authenticate",
+      "target": "func_generate_jwt",
+      "type": "CALLS",
+      "label": "calls",
+      "properties": {
+        "execution_order": 3,
+        "frequency": 800,
+        "latency_ms": 5
+      }
+    },
+    {
+      "id": "edge_4",
+      "source": "func_authenticate",
+      "target": "db_users",
+      "type": "READS_FROM",
+      "label": "reads from",
+      "properties": {
+        "query_type": "SELECT",
+        "table": "users",
+        "frequency": 1000
+      }
+    },
+    {
+      "id": "edge_5",
+      "source": "api_get_products",
+      "target": "func_get_products",
+      "type": "CALLS",
+      "label": "calls",
+      "properties": {
+        "execution_order": 1,
+        "frequency": 5000,
+        "latency_ms": 30
+      }
+    },
+    {
+      "id": "edge_6",
+      "source": "func_get_products",
+      "target": "db_products",
+      "type": "READS_FROM",
+      "label": "reads from",
+      "properties": {
+        "query_type": "SELECT",
+        "table": "products",
+        "frequency": 5000
+      }
+    },
+    {
+      "id": "edge_7",
+      "source": "func_get_products",
+      "target": "cache_redis",
+      "type": "READS_FROM",
+      "label": "reads from",
+      "properties": {
+        "cache_hit_rate": 0.75,
+        "frequency": 5000
+      }
+    },
+    {
+      "id": "edge_8",
+      "source": "api_add_to_cart",
+      "target": "func_add_to_cart",
+      "type": "CALLS",
+      "label": "calls",
+      "properties": {
+        "execution_order": 1,
+        "frequency": 2000,
+        "latency_ms": 50
+      }
+    },
+    {
+      "id": "edge_9",
+      "source": "func_add_to_cart",
+      "target": "func_validate_stock",
+      "type": "CALLS",
+      "label": "calls",
+      "properties": {
+        "execution_order": 2,
+        "frequency": 2000,
+        "latency_ms": 20
+      }
+    },
+    {
+      "id": "edge_10",
+      "source": "func_validate_stock",
+      "target": "db_products",
+      "type": "READS_FROM",
+      "label": "reads from",
+      "properties": {
+        "query_type": "SELECT",
+        "table": "inventory",
+        "frequency": 2000
+      }
+    },
+    {
+      "id": "edge_11",
+      "source": "api_checkout",
+      "target": "func_create_order",
+      "type": "CALLS",
+      "label": "calls",
+      "properties": {
+        "execution_order": 1,
+        "frequency": 500,
+        "latency_ms": 100
+      }
+    },
+    {
+      "id": "edge_12",
+      "source": "func_create_order",
+      "target": "func_process_payment",
+      "type": "CALLS",
+      "label": "calls",
+      "properties": {
+        "execution_order": 2,
+        "frequency": 500,
+        "latency_ms": 200
+      }
+    },
+    {
+      "id": "edge_13",
+      "source": "func_create_order",
+      "target": "db_orders",
+      "type": "WRITES_TO",
+      "label": "writes to",
+      "properties": {
+        "operation": "INSERT",
+        "table": "orders",
+        "frequency": 500
+      }
+    },
+    {
+      "id": "edge_14",
+      "source": "func_create_order",
+      "target": "queue_orders",
+      "type": "TRIGGERS",
+      "label": "triggers",
+      "properties": {
+        "event_type": "order.created",
+        "async": true
+      }
+    },
+    {
+      "id": "edge_15",
+      "source": "func_send_confirmation",
+      "target": "queue_orders",
+      "type": "LISTENS_TO",
+      "label": "listens to",
+      "properties": {
+        "event_type": "order.created",
+        "handler": "sendConfirmation"
+      }
+    },
+    {
+      "id": "edge_16",
+      "source": "service_auth",
+      "target": "api_login",
+      "type": "CONTAINS",
+      "label": "contains",
+      "properties": {}
+    },
+    {
+      "id": "edge_17",
+      "source": "service_auth",
+      "target": "api_register",
+      "type": "CONTAINS",
+      "label": "contains",
+      "properties": {}
+    },
+    {
+      "id": "edge_18",
+      "source": "service_products",
+      "target": "api_get_products",
+      "type": "CONTAINS",
+      "label": "contains",
+      "properties": {}
+    },
+    {
+      "id": "edge_19",
+      "source": "service_cart",
+      "target": "api_add_to_cart",
+      "type": "CONTAINS",
+      "label": "contains",
+      "properties": {}
+    },
+    {
+      "id": "edge_20",
+      "source": "service_cart",
+      "target": "api_checkout",
+      "type": "CONTAINS",
+      "label": "contains",
+      "properties": {}
+    },
+    {
+      "id": "edge_21",
+      "source": "service_cart",
+      "target": "service_products",
+      "type": "DEPENDS_ON",
+      "label": "depends on",
+      "properties": {
+        "dependency_type": "runtime",
+        "critical": true
+      }
+    },
+    {
+      "id": "edge_22",
+      "source": "service_payment",
+      "target": "service_orders",
+      "type": "DEPENDS_ON",
+      "label": "depends on",
+      "properties": {
+        "dependency_type": "runtime",
+        "critical": true
+      }
+    },
+    {
+      "id": "edge_23",
+      "source": "db_products",
+      "target": "service_products",
+      "type": "FAILS_BECAUSE_OF",
+      "label": "fails because of",
+      "properties": {
+        "probability": 0.95,
+        "impact_severity": "high"
+      }
+    },
+    {
+      "id": "edge_24",
+      "source": "service_products",
+      "target": "service_cart",
+      "type": "FAILS_BECAUSE_OF",
+      "label": "fails because of",
+      "properties": {
+        "probability": 0.8,
+        "impact_severity": "medium"
+      }
+    }
+  ],
+  "workflows": [
+    {
+      "id": "workflow_user_registration",
+      "name": "User Registration",
+      "description": "Complete user registration workflow",
+      "steps": [
+        {
+          "step": 1,
+          "node_id": "api_register",
+          "description": "User submits registration form"
+        },
+        {
+          "step": 2,
+          "node_id": "func_authenticate",
+          "description": "Validate and create user account"
+        },
+        {
+          "step": 3,
+          "node_id": "db_users",
+          "description": "Store user in database"
+        },
+        {
+          "step": 4,
+          "node_id": "func_generate_jwt",
+          "description": "Generate authentication token"
+        }
+      ]
+    },
+    {
+      "id": "workflow_product_purchase",
+      "name": "Product Purchase",
+      "description": "Complete product purchase workflow",
+      "steps": [
+        {
+          "step": 1,
+          "node_id": "api_get_products",
+          "description": "Browse products"
+        },
+        {
+          "step": 2,
+          "node_id": "api_add_to_cart",
+          "description": "Add products to cart"
+        },
+        {
+          "step": 3,
+          "node_id": "func_validate_stock",
+          "description": "Validate stock availability"
+        },
+        {
+          "step": 4,
+          "node_id": "api_checkout",
+          "description": "Proceed to checkout"
+        },
+        {
+          "step": 5,
+          "node_id": "func_process_payment",
+          "description": "Process payment"
+        },
+        {
+          "step": 6,
+          "node_id": "func_create_order",
+          "description": "Create order"
+        },
+        {
+          "step": 7,
+          "node_id": "func_send_confirmation",
+          "description": "Send confirmation email"
+        }
+      ]
+    }
+  ]
+}
