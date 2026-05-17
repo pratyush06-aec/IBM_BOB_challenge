@@ -47,17 +47,17 @@ While the prototype looks and feels like the final product, several technical re
 
 ---
 
-<div align="center"> 
+<p align="center"> 
   <img src="assets/Screenshot 2026-05-17 172252.png" alt="Some snapshots of the application" width="250" /> 
-</div> 
+</p> 
 
-<div align="center"> 
+<p align="center"> 
   <img src="assets/Screenshot 2026-05-17 172305.png" alt="Some snapshots of the application" width="250" /> 
-</div> 
+</p> 
 
-<div align="center"> 
+<p align="center"> 
   <img src="assets/Screenshot 2026-05-17 172328.png" alt="Some snapshots of the application" width="250" /> 
-</div> 
+</p> 
 
 ---
 
