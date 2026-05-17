@@ -47,6 +47,29 @@ While the prototype looks and feels like the final product, several technical re
 
 ---
 
+<div align="center">
+  <img src="assets/logo.png" alt="GraphMind AI Logo" width="250" />
+  <h1>GraphMind AI</h1>
+  <p><strong>AI-Native Engineering Cognition Platform</strong></p>
+  <p>Transform repositories into interactive 3D semantic intelligence graphs.</p>
+</div>
+
+<div align="center">
+  <img src="assets/logo.png" alt="GraphMind AI Logo" width="250" />
+  <h1>GraphMind AI</h1>
+  <p><strong>AI-Native Engineering Cognition Platform</strong></p>
+  <p>Transform repositories into interactive 3D semantic intelligence graphs.</p>
+</div>
+
+<div align="center">
+  <img src="assets/logo.png" alt="GraphMind AI Logo" width="250" />
+  <h1>GraphMind AI</h1>
+  <p><strong>AI-Native Engineering Cognition Platform</strong></p>
+  <p>Transform repositories into interactive 3D semantic intelligence graphs.</p>
+</div>
+
+---
+
 ## 🚀 Developer Quick Start Guide
 
 To continue development on GraphMind AI, follow these minute details to get the project running locally.
