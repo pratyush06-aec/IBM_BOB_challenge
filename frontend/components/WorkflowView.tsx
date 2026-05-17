@@ -15,7 +15,11 @@ interface Workflow {
   }>
 }
 
-export default function WorkflowView() {
+interface WorkflowViewProps {
+  token: string
+}
+
+export default function WorkflowView({ token }: WorkflowViewProps) {
   const [workflows, setWorkflows] = useState<Workflow[]>([])
   const [selectedWorkflow, setSelectedWorkflow] = useState<Workflow | null>(null)
   const [loading, setLoading] = useState(true)
@@ -26,7 +30,11 @@ export default function WorkflowView() {
 
   const fetchWorkflows = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/workflows')
+      const response = await fetch('http://localhost:8000/api/workflows', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
       const data = await response.json()
       setWorkflows(data.workflows || [])
       if (data.workflows && data.workflows.length > 0) {
@@ -41,7 +49,11 @@ export default function WorkflowView() {
 
   const fetchWorkflowDetails = async (workflowId: string) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/workflow/${workflowId}`)
+      const response = await fetch(`http://localhost:8000/api/workflow/${workflowId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
       const data = await response.json()
       setSelectedWorkflow(data)
     } catch (error) {

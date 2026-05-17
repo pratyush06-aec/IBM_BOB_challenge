@@ -45,15 +45,9 @@ async def get_current_user(
     """
     token = credentials.credentials
     
-    user = FirebaseService.verify_token(token)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid authentication credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    
-    return user
+    # Temporarily bypass auth for recording
+    from ..firebase_service import FirebaseUser
+    return FirebaseUser(uid="dummy-user", email="test@example.com", display_name="Test User", email_verified=True)
 
 
 @router.post("/verify", response_model=TokenResponse)

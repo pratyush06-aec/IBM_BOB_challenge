@@ -105,7 +105,7 @@ export default function Graph3D({ data, onNodeClick, selectedNode }: Graph3DProp
   }, [graphData])
 
   useEffect(() => {
-    if (!data) return
+    if (!data || !data.nodes || !data.edges) return
 
     // Transform data for ForceGraph3D with bold styling
     const transformedData = {

@@ -53,10 +53,16 @@ class FirebaseService:
                     firebase_admin.initialize_app(cred)
                     print("[INFO] Firebase Admin SDK initialized with environment JSON")
                 else:
-                    print("[WARNING] Firebase service account not configured")
-                    print("          Set FIREBASE_SERVICE_ACCOUNT_PATH or FIREBASE_SERVICE_ACCOUNT_JSON")
-                    print("          Authentication will not work without Firebase configuration")
-                    return
+                    # Fallback for just token verification: initialize with project ID
+                    project_id = os.getenv('FIREBASE_PROJECT_ID', 'graphmindai-573e7')
+                    if project_id:
+                        firebase_admin.initialize_app(options={'projectId': project_id})
+                        print(f"[INFO] Firebase Admin SDK initialized with Project ID: {project_id} (Token verification only)")
+                    else:
+                        print("[WARNING] Firebase service account and project ID not configured")
+                        print("          Set FIREBASE_SERVICE_ACCOUNT_PATH, FIREBASE_SERVICE_ACCOUNT_JSON, or FIREBASE_PROJECT_ID")
+                        print("          Authentication will not work without Firebase configuration")
+                        return
             
             cls._initialized = True
             

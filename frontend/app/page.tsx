@@ -23,7 +23,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   
   // Auth state
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(true)
   const [user, setUser] = useState<any>(null)
   const [token, setToken] = useState<string>('')
   const [showAuthModal, setShowAuthModal] = useState(false)
@@ -54,7 +54,15 @@ export default function Home() {
           'Authorization': `Bearer ${token}`
         }
       })
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) {
+            if (res.status === 401) {
+              handleLogout();
+            }
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          return res.json();
+        })
         .then(data => {
           setGraphData(data)
           setLoading(false)
@@ -63,14 +71,22 @@ export default function Home() {
           console.error('Error loading graph:', err)
           setLoading(false)
         })
-    } else if (token) {
+    } else {
       // Fetch default sample graph
       fetch('http://localhost:8000/api/graph', {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer dummy-token`
         }
       })
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) {
+            if (res.status === 401) {
+              handleLogout();
+            }
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          return res.json();
+        })
         .then(data => {
           setGraphData(data)
           setLoading(false)
@@ -411,7 +427,7 @@ export default function Home() {
               </div>
             </motion.div>
           ) : showWorkflow ? (
-            <WorkflowView />
+            <WorkflowView token={token} />
           ) : (
             <Graph3D
               data={graphData}

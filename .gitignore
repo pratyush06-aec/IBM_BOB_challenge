@@ -21,6 +21,7 @@ backend/venv/
 .env.test.local
 .env.production.local
 backend/.env
+.env.local.example
 
 # Next.js
 frontend/.next/
